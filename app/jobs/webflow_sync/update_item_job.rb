@@ -6,8 +6,8 @@ module WebflowSync
     # For collections that have spaces in their name, WebFlow sets slug by replacing space for "-".
     # 'JobListing'.underscore.dasherize.pluralize => 'job-listings'
     # 'job_listing'.underscore.dasherize.pluralize => 'job-listings'
-    def perform(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
-      model_class = model_name.underscore.classify.constantize
+    def perform(model_name, id, collection_slug = model_name.to_s.underscore.dasherize.pluralize)
+      model_class = model_name.to_s.underscore.classify.constantize
       record = model_class.find_by(id: id)
       return if record.blank?
       return if record.webflow_site_id.blank?

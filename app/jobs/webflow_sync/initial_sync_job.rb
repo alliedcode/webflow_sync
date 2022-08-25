@@ -2,12 +2,12 @@
 
 module WebflowSync
   class InitialSyncJob < ApplicationJob
-    def perform(collection_slug)
-      model_class = collection_slug.underscore.classify.constantize
+    def perform(model_name)
+      model_class = model_name.to_s.underscore.classify.constantize
       model_class.where(webflow_item_id: nil).find_each do |record|
         next if record.webflow_site_id.blank?
 
-        client(record.webflow_site_id).create_item(record, collection_slug)
+        client(record.webflow_site_id).create_item(record, model_class.webflow_collection_slug)
       end
     end
 

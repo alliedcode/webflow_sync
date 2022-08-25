@@ -39,6 +39,16 @@ module WebflowSync
       def as_webflow_json
         self.as_json
       end
+
+      # You can customize this to your liking:
+      # def webflow_collection_slug
+      #   'my-slug-name'
+      # end
+      #
+      # This has to match the "Collection URL" in the webflow collection
+      def self.webflow_collection_slug
+        self.model_name.collection.underscore.dasherize
+      end
     end
   end
 end

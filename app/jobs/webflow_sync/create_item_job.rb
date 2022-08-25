@@ -10,8 +10,8 @@ module WebflowSync
     # model_name => Rails model that has webflow_site_id and webflow_item_id columns
     # collection_slug => slug of the WebFlow collection
     # model_name = 'articles'; id = article.id, collection_slug = 'stories'
-    def perform(model_name, id, collection_slug = model_name.underscore.dasherize.pluralize)
-      model_class = model_name.underscore.classify.constantize
+    def perform(model_name, id, collection_slug = model_name.to_s.underscore.dasherize.pluralize)
+      model_class = model_name.to_s.underscore.classify.constantize
       record = model_class.find_by(id: id)
       return if record.blank?
       return if record.webflow_site_id.blank?
